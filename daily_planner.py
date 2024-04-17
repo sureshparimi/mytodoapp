@@ -2,8 +2,6 @@ import streamlit as st
 import sqlite3
 from datetime import datetime
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Disable PyplotGlobalUseWarning
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -48,21 +46,21 @@ def format_due_date(due_datetime_str):
     due_datetime = datetime.strptime(due_datetime_str, "%Y-%m-%d %H:%M:%S")
     return due_datetime.strftime("%d %B %Y, %H:%M:%S")
 
-# Function to perform exploratory data analysis (EDA)
-def perform_eda(tasks):
-    df = pd.DataFrame(tasks, columns=['id', 'task', 'due_datetime', 'status', 'category'])
+# # Function to perform exploratory data analysis (EDA)
+# def perform_eda(tasks):
+#     df = pd.DataFrame(tasks, columns=['id', 'task', 'due_datetime', 'status', 'category'])
     
-    # Define color palette based on task statuses
-    status_palette = {'Completed': 'green', 'In Progress': 'blue', 'Not yet started': 'orange', 'Canceled': 'red'}
-    status_colors = [status_palette[status] for status in df['status']]
+#     # Define color palette based on task statuses
+#     status_palette = {'Completed': 'green', 'In Progress': 'blue', 'Not yet started': 'orange', 'Canceled': 'red'}
+#     status_colors = [status_palette[status] for status in df['status']]
     
-    # Countplot of task category distribution with stacked bars for status
-    plt.figure(figsize=(10, 6))
-    sns.countplot(data=df, y='category', hue='status', palette=status_palette)
-    plt.title('Task Category Distribution with Status')
-    plt.xlabel('Count')
-    plt.ylabel('Category')
-    st.pyplot()
+#     # Countplot of task category distribution with stacked bars for status
+#     plt.figure(figsize=(10, 6))
+#     sns.countplot(data=df, y='category', hue='status', palette=status_palette)
+#     plt.title('Task Category Distribution with Status')
+#     plt.xlabel('Count')
+#     plt.ylabel('Category')
+#     st.pyplot()
 
 # Main function
 def main():
@@ -108,8 +106,8 @@ def main():
                     if st.button("Update Status", key=f"update_{task_id}"):
                         update_task_status(conn, task_id, new_status)
                         st.success("Status updated successfully!")
-            # Perform EDA after displaying tasks
-            perform_eda(tasks)
+            # # Perform EDA after displaying tasks
+            # perform_eda(tasks)
         else:
             st.write("No tasks found for selected date.")
 
